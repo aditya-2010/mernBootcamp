@@ -55,8 +55,8 @@ userSchema
 
 // Methods defined in userSchema: Authenticate, securePassword
 userSchema.methods = {
-  authenticate: function (plainpassword) {
-    return this.securePassword(plainpassword) === this.encry_password;
+  authenticate: function (plainPassword) {
+    return this.securePassword(plainPassword) === this.encry_password;
   },
 
   // securePassword method converts plain password given by user into a encrypted password

@@ -23,7 +23,7 @@ mongoose
 
 // Adding Middlewares
 app.use(bodyParser.json());
-app.use(cookieParser());
+app.use(cookieParser()); // used to save data in user's browser (cookies)
 app.use(cors());
 
 // Route Middleware

@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { check, validationResult } = require("express-validator");
-const { signup, signout, signin } = require("../controllers/auth");
+const { signup, signout, signin, isSignedIn } = require("../controllers/auth");
 
 // Validations are mentioned after the routes(eg. "/signup") and before the controller(eg. signup)
 // In routers only checking of validation is done
@@ -22,14 +22,17 @@ router.post(
 router.post(
   "/signin",
   [
-    check("email").isEmail().withMessage("Email is required"),
-    check("password")
-      .isLength({ min: 8 })
-      .withMessage("Password field is required"),
+    check("email", "Email is required").isEmail(),
+    check("password", "Password field is required").isLength({ min: 8 }),
   ],
   signin
 );
 
 router.get("/signout", signout);
+
+router.get("/test", isSignedIn, (req, res) => {
+  res.json(req.auth);
+});
+// we can add bearer token here
 
 module.exports = router;
