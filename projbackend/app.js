@@ -7,12 +7,14 @@ const cors = require("cors");
 
 require("dotenv").config();
 
+// My Routes  (goto Route middlewares)
 const authRoutes = require("./routes/auth");
+const userRoutes = require("./routes/user");
 
 // Connecting to mongoDB
 mongoose
   .connect(process.env.DATABASE, {
-    // the link of db is not mentioned in here for scurity reasons, its in .env file (.env file is not uploaded to git)
+    // the link of db is not mentioned in here for security reasons, its in .env file (.env file is not uploaded to git)
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
@@ -22,12 +24,13 @@ mongoose
   });
 
 // Adding Middlewares
-app.use(bodyParser.json());
+app.use(bodyParser.json()); // creates req.body
 app.use(cookieParser()); // used to save data in user's browser (cookies)
 app.use(cors());
 
-// Route Middleware
+// Route Middlewares
 app.use("/api", authRoutes);
+app.use("/api", userRoutes);
 
 // PORT
 const port = process.env.PORT || 4000;

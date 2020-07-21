@@ -11,7 +11,7 @@ exports.signup = (req, res) => {
     });
   }
 
-  const user = new User(req.body); // creating user object from User model
+  const user = new User(req.body); // creating an instance(document) of User model
   // Saving user model details to DB
   user.save((error, user) => {
     if (error) {
@@ -71,15 +71,15 @@ exports.signout = (req, res) => {
 exports.isSignedIn = expressJwt({
   // next is not required coz its included in express-jwt
   secret: process.env.SECRET,
-  algorithms: ["HS256"],
+  // algorithms: ["HS256"],
   userProperty: "auth",
 });
 
 // custom middlewares
 exports.isAuthenticated = (req, res, next) => {
-  let checker = req.profile && req.auth && req.profile._id === req.auth._id; //req.profile comes from frontend
+  let checker = req.profile && req.auth && req.profile._id == req.auth._id; //req.profile comes from frontend
   if (!checker) {
-    return req.status(403).json({
+    return res.status(403).json({
       error: "ACCESS DENIED",
     });
   }
