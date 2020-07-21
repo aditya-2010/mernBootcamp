@@ -1,5 +1,6 @@
 const User = require("../models/user");
 const { Cart } = require("../models/cart");
+const { findOneAndUpdate } = require("../models/user");
 
 exports.getUserById = (req, res, next, id) => {
   User.findById(id).exec((err, user) => {
@@ -58,6 +59,7 @@ exports.userPurchaseList = (req, res) => {
     });
 };
 
+// middleware to add items in cart
 exports.pushOrderInPurchaseList = (req, res, next) => {
   let purchases = [];
   req.body.cart.products.forEach((product) => {
@@ -71,5 +73,17 @@ exports.pushOrderInPurchaseList = (req, res, next) => {
       transaction_id: req.body.cart.transaction_id,
     });
   });
-  next();
+  User.findOneAndUpdate(
+    { _id: req.profile._id },
+    { $push: { purchases: purchases } },
+    { new: true },
+    (err, purchases) => {
+      if (err) {
+        return res.status(400).json({
+          error: "Unable to save purchase list",
+        });
+      }
+      next();
+    }
+  );
 };
