@@ -1,6 +1,6 @@
 const Category = require("../models/category");
 
-exports.getCategoryById = (req, rs, next, id) => {
+exports.getCategoryById = (req, res, next, id) => {
   Category.findById(id).exec((err, category) => {
     if (err || !category) {
       return res.status(400).json({
@@ -20,6 +20,48 @@ exports.createCategory = (req, res) => {
         error: "Unable to save category in DB",
       });
     }
-    res.json({ category });
+    res.json({ category }); // FIXME: {category}
+  });
+};
+
+exports.getCategory = (req, res) => {
+  return res.json(req.category);
+};
+
+exports.getAllCategory = (req, res) => {
+  Category.find().exec((err, categories) => {
+    if (err) {
+      res.status(400).json({
+        error: "No categories found",
+      });
+    }
+    res.json(categories);
+  });
+};
+
+exports.updateCategory = (req, res) => {
+  const category = req.category;
+  category.name = req.body.name;
+  category.save((err, updatedCategory) => {
+    if (err) {
+      res.status(400).json({
+        error: "Failed to update category",
+      });
+    }
+    res.json(updatedCategory);
+  });
+};
+
+exports.removeCategory = (req, res) => {
+  const category = req.category;
+  category.remove((err, category) => {
+    if (err) {
+      res.status(400).json({
+        error: `Failed to delete category ${category.name}`,
+      });
+    }
+    res.json({
+      message: `Successfully deleted the category ${category.name}`,
+    });
   });
 };

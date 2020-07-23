@@ -1,6 +1,5 @@
 const User = require("../models/user");
 const { Cart } = require("../models/cart");
-const { findOneAndUpdate } = require("../models/user");
 
 exports.getUserById = (req, res, next, id) => {
   User.findById(id).exec((err, user) => {
@@ -47,7 +46,7 @@ exports.updateUser = (req, res) => {
 };
 
 exports.userPurchaseList = (req, res) => {
-  Cart.find({ user: req.profile }) // FIXME: ._id??
+  Cart.find({ user: req.profile._id }) // FIXME: ._id??
     .populate("user", "_id name email")
     .exec((err, cart) => {
       if (err) {
