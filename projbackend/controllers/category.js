@@ -12,18 +12,6 @@ exports.getCategoryById = (req, res, next, id) => {
   });
 };
 
-exports.createCategory = (req, res) => {
-  const category = new Category(req.body);
-  category.save((err, category) => {
-    if (err) {
-      res.status(400).json({
-        error: "Unable to save category in DB",
-      });
-    }
-    res.json({ category }); // FIXME: {category}
-  });
-};
-
 exports.getCategory = (req, res) => {
   return res.json(req.category);
 };
@@ -36,6 +24,18 @@ exports.getAllCategory = (req, res) => {
       });
     }
     res.json(categories);
+  });
+};
+
+exports.createCategory = (req, res) => {
+  const category = new Category(req.body);
+  category.save((err, category) => {
+    if (err) {
+      res.status(400).json({
+        error: "Unable to save category in DB",
+      });
+    }
+    res.json({ category }); // FIXME: {category}
   });
 };
 

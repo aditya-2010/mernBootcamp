@@ -35,10 +35,11 @@ const productSchema = new mongoose.Schema(
       data: Buffer,
       contentType: String,
     },
-    size: {
-      type: String,
-      required: true,
-    },
+    // TODO: work on size
+    // size: {
+    //   type: String,
+    //   required: true,
+    // },
   },
   { timestamps: true }
 );
