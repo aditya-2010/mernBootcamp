@@ -20,6 +20,11 @@ const cartSchema = new mongoose.Schema(
     transaction_id: {},
     amount: { type: Number },
     address: { type: String, required: true, maxLength: 500 },
+    status: {
+      type: String,
+      default: "Received",
+      enum: [" Cancelled", "Delivered", "Shipped", "Processing", "Received"],
+    },
     updated: Date,
     user: {
       type: ObjectId,

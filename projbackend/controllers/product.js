@@ -124,6 +124,8 @@ exports.updateProduct = (req, res) => {
       product.photo.contentType = file.photo.type;
     }
 
+    console.log(product);
+
     // save to DB
     product.save((err, product) => {
       if (err) {
@@ -154,4 +156,34 @@ exports.getAllProducts = (req, res) => {
       }
       res.json(products);
     });
+};
+
+exports.updateStock = (req, res, next) => {
+  let myOperations = req.body.cart.products.map((prod) => {
+    return {
+      updateOne: {
+        filter: { _id: prod._id },
+        update: { $inc: { stock: -prod.count, sold: +prod.count } },
+      },
+    };
+  });
+  Product.bulkWrite(myOperations, {}, (err, products) => {
+    if (err) {
+      return res.status(400).json({
+        error: "Bulk operation failed",
+      });
+    }
+    next();
+  });
+};
+
+exports.getAllUniqueCategories = (req, res) => {
+  Product.distinct("category", {}, (err, categories) => {
+    if (err) {
+      return res.status(400).json({
+        error: "No category found",
+      });
+    }
+    res.json(categories);
+  });
 };
