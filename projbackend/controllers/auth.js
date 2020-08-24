@@ -53,7 +53,7 @@ exports.signin = (req, res) => {
     // After the email and password is verified, create a jwt which is saved in user's browser
     const token = jwt.sign({ _id: user._id }, process.env.SECRET);
     // put token in cookie
-    res.cookie("token", token, { expire: new Date() + 9999 });
+    res.cookie("token", token, { expire: new Date() + 1 });
     // send response to front-end
     const { _id, name, email, role } = user;
     return res.json({ token, user: { _id, name, email, role } });

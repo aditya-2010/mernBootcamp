@@ -1,0 +1,16 @@
+Emmet for jsx:
+
+{
+   "emmet.includeLanguages": {
+      "javascript": "javascriptreact"
+   }
+}
+
+
+
+Prettier: 
+
+{
+    "editor.acceptSuggestionOnCommitCharacter": false,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+}

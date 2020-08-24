@@ -1,0 +1,29 @@
+.btn,
+.jumbotron,
+.nav :hover {
+  border-radius: 3px;
+}
+
+body {
+  background: #343a40;
+}
+
+/* footer {
+  position: sticky;
+  bottom: 0;
+  right: 0;
+  left: 0;
+} */
+
+.navbar {
+  position: sticky;
+  top: 0;
+}
+
+.Toastify__toast--default {
+  color: black;
+}
+
+.Toastify__toast {
+  border-radius: 8px;
+}

@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "nodemon app.js'"
   },
   "keywords": [],
   "author": "",
@@ -25,7 +25,8 @@
     "mongoose": "^5.7.7",
     "morgan": "^1.9.1",
     "nodemon": "^1.19.4",
-    "npm": "^6.13.0",
+    "npm": "^6.14.7",
+    "pm2": "^4.4.0",
     "prettier": "^2.0.5",
     "uuid": "^3.3.3"
   }

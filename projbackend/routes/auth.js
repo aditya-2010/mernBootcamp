@@ -13,8 +13,8 @@ router.post(
       .withMessage("Name must be at least 3 chars long"),
     check("email").isEmail().normalizeEmail().withMessage("Email is required"),
     check("password")
-      .isLength({ min: 8 })
-      .withMessage("Password must be at least 8 chars long"),
+      .isLength({ min: 6 })
+      .withMessage("Password must be at least 6 chars long"),
   ],
   signup
 );
@@ -23,7 +23,7 @@ router.post(
   "/signin",
   [
     check("email", "Email is required").isEmail(),
-    check("password", "Password field is required").isLength({ min: 8 }),
+    check("password", "Password field is required").isLength({ min: 6 }),
   ],
   signin
 );
