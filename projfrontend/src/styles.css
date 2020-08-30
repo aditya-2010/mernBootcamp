@@ -8,16 +8,15 @@ body {
   background: #343a40;
 }
 
-/* footer {
-  position: sticky;
-  bottom: 0;
-  right: 0;
-  left: 0;
-} */
-
 .navbar {
   position: sticky;
   top: 0;
+}
+
+.signin {
+  border: 2px;
+  border-color: orange;
+  border-radius: 5px;
 }
 
 .Toastify__toast--default {

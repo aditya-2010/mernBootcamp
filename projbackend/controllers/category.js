@@ -7,7 +7,7 @@ exports.getCategoryById = (req, res, next, id) => {
         error: "Category not found in DB",
       });
     }
-    req.category = category;
+    res.category = category;
     next();
   });
 };
@@ -35,12 +35,13 @@ exports.createCategory = (req, res) => {
         error: "Unable to save category in DB",
       });
     }
-    res.json({ category }); // FIXME: {category}
+    res.json(category);
   });
 };
 
 exports.updateCategory = (req, res) => {
-  const category = req.category;
+  let category = res.category;
+  console.log(req.body);
   category.name = req.body.name;
   category.save((err, updatedCategory) => {
     if (err) {
@@ -53,7 +54,7 @@ exports.updateCategory = (req, res) => {
 };
 
 exports.removeCategory = (req, res) => {
-  const category = req.category;
+  const category = res.category;
   category.remove((err, category) => {
     if (err) {
       res.status(400).json({

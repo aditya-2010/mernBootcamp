@@ -33,8 +33,8 @@ const Signin = () => {
             ...values,
             didRedirect: true,
           });
-          toast("You've successfully signed in");
         });
+        toast("You've successfully signed in", { position: "top-center" });
       }
     });
     // .catch(console.log("signin request failed"));
@@ -119,7 +119,7 @@ const Signin = () => {
 
   return (
     <Base title="Sign In" description="">
-      <ToastContainer hideProgressBar={true} />
+      <ToastContainer hideProgressBar={true} position="top-center" />
       {loadingMessage()}
       {errorMessage()}
       {signInForm()}

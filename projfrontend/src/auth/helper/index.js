@@ -10,8 +10,10 @@ export const signup = (user) => {
     },
     body: JSON.stringify(user),
   })
-    .then((response) => toast.success(`Signup successful`)) // response returns user id, name, email
-    .catch((err) => toast.error(`Signup failed`)); // use sentry
+    .then((response) =>
+      toast.success(`Signup successful`, { position: "top-center" })
+    ) // response returns user id, name, email
+    .catch((err) => toast.error(`Signup failed`, { position: "top-center" })); // use sentry
 };
 
 export const signin = (user) => {
@@ -39,8 +41,10 @@ export const signout = (next) => {
     return fetch(`${API}/signout`, {
       method: "GET",
     })
-      .then((response) => toast.info("You've successfully signed out"))
-      .catch((err) => toast.error(err)); // use sentry
+      .then((response) =>
+        toast.info("You've successfully signed out", { position: "top-center" })
+      )
+      .catch((err) => toast.error(err), { position: "top-center" }); // use sentry
   }
   next();
 };

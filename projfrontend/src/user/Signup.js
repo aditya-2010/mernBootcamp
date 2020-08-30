@@ -28,7 +28,7 @@ class Signup extends Form {
   render() {
     return (
       <Base title="Signup" description="It's Free!">
-        <ToastContainer />
+        <ToastContainer hideProgressBar={true} position="top-center" />
 
         <div className="row">
           <div className="col-sm-6 offset-sm-3">

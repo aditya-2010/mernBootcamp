@@ -1,22 +1,21 @@
 import React, { useState, useEffect } from "react";
 import Base from "../core/Base";
+import { isAuthenticated } from "./../auth/helper/index";
 import { Link } from "react-router-dom";
-import { isAuthenticated } from "../auth/helper";
-import { getAllProducts, deleteProduct } from "./helper/adminapicall";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { getAllCategories, deleteCategory } from "./helper/adminapicall";
+import { ToastContainer, toast } from "react-toastify";
 
-const ManageProducts = () => {
-  const [products, setProducts] = useState([]);
+const ManageCategories = () => {
+  const [categories, setCategories] = useState([]);
 
   const { user, token } = isAuthenticated();
 
   const preload = () => {
-    getAllProducts().then((data) => {
+    getAllCategories().then((data) => {
       if (data.error) {
         console.log(data.error);
       } else {
-        setProducts(data);
+        setCategories(data);
       }
     });
   };
@@ -25,37 +24,37 @@ const ManageProducts = () => {
     preload();
   }, []);
 
-  const deleteThisProduct = (productId) => {
-    deleteProduct(user._id, token, productId).then((data) => {
+  const deleteThisCategory = (categoryId) => {
+    deleteCategory(user._id, token, categoryId).then((data) => {
       if (data.error) {
         toast.error(data.error, { position: "top-center" });
       } else {
-        toast.info("Product deleted successfully");
+        toast.info("Category deleted successfully");
         preload();
       }
     });
   };
 
   return (
-    <Base title="Welcome admin" description="Manage products here">
-      <h2 className="mb-4">All products:</h2>
-      <Link className="btn btn-info" to="/admin/dashboard">
+    <Base title="Welcome admin" description="Manage categories here">
+      <Link className="btn btn-info mb-2" to="/admin/dashboard">
         <span className="">Admin Home</span>
       </Link>
+      <h3 className="mb-4">
+        <u> All Categories: </u>
+      </h3>
       <div className="row">
         <div className="col-12">
-          <h2 className="text-center text-white my-3">{`Total ${products.length} products`}</h2>
-
-          {products.map((product, index) => {
+          {categories.map((category, index) => {
             return (
               <div key={index} className="row text-center mb-2 ">
                 <div className="col-4">
-                  <h3 className="text-white text-left">{product.name}</h3>
+                  <h3 className="text-white text-left">{category.name}</h3>
                 </div>
                 <div className="col-4">
                   <Link
                     className="btn btn-success"
-                    to={`/admin/product/update/${product._id}`}
+                    to={`/admin/category/update/${category._id}`}
                   >
                     <span className="">Update</span>
                   </Link>
@@ -63,7 +62,7 @@ const ManageProducts = () => {
                 <div className="col-4">
                   <button
                     onClick={() => {
-                      deleteThisProduct(product._id);
+                      deleteThisCategory(category._id);
                     }}
                     className="btn btn-danger"
                   >
@@ -73,6 +72,7 @@ const ManageProducts = () => {
               </div>
             );
           })}
+          <h4 className="text-center text-white my-3">{`Total ${categories.length} categories`}</h4>
         </div>
       </div>
       <ToastContainer hideProgressBar={true} position="top-center" />
@@ -80,4 +80,4 @@ const ManageProducts = () => {
   );
 };
 
-export default ManageProducts;
+export default ManageCategories;

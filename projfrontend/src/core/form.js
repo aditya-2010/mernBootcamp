@@ -13,8 +13,6 @@ class Form extends Component {
   state = {
     data: {},
     errors: {},
-    loading: false,
-    done: false,
   };
 
   validate = () => {

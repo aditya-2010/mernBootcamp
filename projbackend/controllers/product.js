@@ -66,8 +66,8 @@ exports.createProduct = (req, res) => {
 };
 
 exports.getProduct = (req, res) => {
-  req.product.photo = undefined;
-  return res.json(req.product);
+  res.product.photo = undefined;
+  return res.json(res.product);
 };
 
 // middleware
@@ -81,7 +81,7 @@ exports.photo = (req, res, next) => {
 
 // Delete product controller
 exports.deleteProduct = (req, res) => {
-  let product = req.product;
+  let product = res.product;
   product.remove((err, deletedProduct) => {
     if (err) {
       return res.status(400).json({
@@ -90,7 +90,7 @@ exports.deleteProduct = (req, res) => {
       });
     }
     res.json({
-      message: "Deletion was success",
+      message: "Product deleted successfully",
       deletedProduct,
     });
   });
@@ -109,7 +109,7 @@ exports.updateProduct = (req, res) => {
     }
 
     // updation code
-    let product = req.product;
+    let product = res.product;
     product = _.extend(product, fields); // TODO: use spread operator while testing
 
     // handle file here
@@ -123,8 +123,6 @@ exports.updateProduct = (req, res) => {
       product.photo.data = fs.readFileSync(file.photo.path);
       product.photo.contentType = file.photo.type;
     }
-
-    console.log(product);
 
     // save to DB
     product.save((err, product) => {

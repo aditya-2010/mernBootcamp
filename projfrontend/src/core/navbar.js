@@ -6,32 +6,24 @@ import "react-toastify/dist/ReactToastify.css";
 
 const NavBar = ({ history }) => {
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-      <ToastContainer hideProgressBar={true} />
+    <nav className="navbar navbar-toggleable-md navbar-expand navbar-dark bg-dark">
+      <ToastContainer hideProgressBar={true} position="top-center" />
       <Link className="navbar-brand" to="/home">
-        My Store
+        The T-Shirt Store
       </Link>
       <button
         className="navbar-toggler"
         type="button"
         data-toggle="collapse"
         data-target="#navbarNav"
-        aria-controls="navbarNav"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
       >
         <span className="navbar-toggler-icon"></span>
       </button>
       <div className="collapse navbar-collapse" id="navbarNav">
         <ul className="navbar-nav mr-auto">
           <li className="nav-item">
-            <NavLink className="nav-link" to="/home">
-              Home
-            </NavLink>
-          </li>
-          <li className="nav-item">
             <NavLink className="nav-link" to="/cart">
-              Cart
+              My Cart
             </NavLink>
           </li>
           {isAuthenticated() && isAuthenticated().user.role === 0 && (
@@ -62,9 +54,8 @@ const NavBar = ({ history }) => {
               </li>
             </React.Fragment>
           )}
-
           {isAuthenticated() && (
-            <li className="nav-item">
+            <li className="nav-item ml-auto">
               <span
                 className="nav-link text-warning"
                 style={{ cursor: "pointer" }}
